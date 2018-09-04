@@ -50,10 +50,14 @@ public class SSOLogin implements Login {
   return ls;
  }
 }
+```
 扩展新的Login类之后，通过在web.xml文件Servlet（authentication）类中指定loginClass即可。<br><br>
 **web.xml代码片段**
-```
 ```Xml
-
+<init-param>
+ <!-- 用户登录，业务逻辑实现类，通过实现Login接口完成用户验证业务逻辑。 -->
+ <param-name>loginClass</param-name>
+ <param-value>com.starnil.ms.component.ssoauth.server.servlet.SSOLogin</param-value>
+</init-param>
 ```
 ## 四、demo配置
