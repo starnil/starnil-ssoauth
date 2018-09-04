@@ -61,7 +61,7 @@ public class SSOLogin implements Login {
 </init-param>
 ```
 ### 3.2、缓存扩展（实现SSOCache接口）
-当前组件用户登录成功后会向本地缓存中写入Ticket对象与Token数据。Ticket储存当前登录用户基本数据、Token数据用于返回给客户端（只使用一次）。如需要结合分布式缓存服务，只需要新建一个类并实现SSOCache，同时通过web.xml指定cacheClass即可（注：需要启动SSOListener）<br><br>
+当前组件用户登录成功后会向本地缓存中写入Ticket对象与Token数据。Ticket储存当前登录用户基本数据、Token数据用于返回给客户端（只使用一次）。如需要结合分布式缓存服务，只需要新建一个类并实现SSOCache，同时通过web.xml指定cacheClass即可（注：需要启动SSOListener）。<br><br>
 **web.xml代码片段**
 ```Xml
 <!-- 
@@ -85,4 +85,31 @@ public class SSOLogin implements Login {
  </listener-class>
 </listener>
 ```
-## 四、demo配置
+## 四、演示demo相关配置
+项目中提供3个demo项目starnil-ssoauth-server、starnil-ssoauth-client1、starnil-ssoauth-client2供测试使用（基于tomcat）。
+
+### 4.1、tomcat配置文件（server.xml）
+添加3个Host即可，注意docBase配置成本实际路径。<br><br>
+**server.xml代码片段**
+```Xml
+<Host name="www.ssoserver.com"  appBase="webapps" unpackWARs="true" autoDeploy="true">
+ <Context  path="" docBase="D:\starnil-ssoauth-server\target\starnil-ssoauth-server-0.0.1-SNAPSHOT">
+ </Context>
+</Host>
+<Host name="www.ssoclient1.com"  appBase="webapps" unpackWARs="true" autoDeploy="true">
+ <Context  path="" docBase="D:\starnil-ssoauth-client1\target\starnil-ssoauth-client1-0.0.1-SNAPSHOT">
+ </Context>
+</Host>
+<Host name="www.ssoclient2.com"  appBase="webapps" unpackWARs="true" autoDeploy="true">
+ <Context  path="" docBase="D:\starnil-ssoauth-client2\target\starnil-ssoauth-client2-0.0.1-SNAPSHOT">
+ </Context>
+</Host>
+```
+### 4.2、修改hosts文件
+如本机需要通过4.1中域名访问各项目，需要对C:\Windows\System32\Drivers\etc目录下hosts文件进行修改。<br><br>
+**hosts文件添加映射**
+```Txt
+127.0.0.1 www.ssoserver.com
+127.0.0.1 www.ssoclient1.com
+127.0.0.1 www.ssoclient2.com
+```
