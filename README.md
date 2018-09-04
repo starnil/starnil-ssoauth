@@ -60,4 +60,28 @@ public class SSOLogin implements Login {
  <param-value>com.starnil.ms.component.ssoauth.server.servlet.SSOLogin</param-value>
 </init-param>
 ```
+### 3.2、缓存扩展（实现SSOCache接口）
+当前组件用户登录成功后会向本地缓存中写入Ticket对象与Token数据。Ticket储存当前登录用户基本数据、Token数据用于返回给客户端（只使用一次）。如需要结合分布式缓存服务，只需要新建一个类并实现SSOCache，同时通过web.xml指定cacheClass即可（注：需要启动SSOListener）<br><br>
+**web.xml代码片段**
+```Xml
+<!-- 
+  缓存处理类，该类用于实现SSO用户登录后token、ticket数据的存储。默认采用本地缓存（不适用分布式环境）。
+  用户可设置自己的处理类实现分布式缓存（基于redis、memcached等），但必须实现“com.starnil.ms.component.ssoauth.cache.SSOCache”接口。
+-->
+<context-param>
+ <param-name>cacheClass</param-name>
+ <param-value>com.starnil.ms.component.ssoauth.cache.SSOCacheImpl</param-value>
+</context-param>
+<!-- 清理过期用户间隔时间（单位分），3分钟清理一次 -->
+<context-param>
+ <param-name>clearIntervalTime</param-name>
+ <param-value>3</param-value>
+</context-param>
+<!-- SSO监听，用于实例化系统缓存（这里可指定分布式缓存服务等）、清理过期用户等 -->
+<listener>
+ <listener-class>
+  com.starnil.ms.component.ssoauth.server.SSOListener
+ </listener-class>
+</listener>
+```
 ## 四、demo配置
