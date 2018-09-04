@@ -1,0 +1,29 @@
+package com.starnil.ms.component.ssoauth.server;
+
+/**
+ * 系统应用中部分静态常量。开发中可在此加入所需常量。尽量满足static、final特性。
+ * 
+ * @author starnil@139.com
+ * @version 1.0
+ *
+ */
+public class Constants {
+	/** 系统已登录user session名，需获取user信息，可通过此名在session中查找 */
+	public static final String SSOAUTH_USER_SESSION = "SSOAUTH_USER_SESSION_STARNIL_MS";
+	public static final String SSOAUTH_CLIENT_PUBLIC_KEY = "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCJPwCkU+ocXFWena0Dc4a2z803+TiJRr5Zs3YU45a8nWruYBPRvk+cqfoVLOugwAjgLwSmI5szdsyk0V3w2pq5AHNgVH9DNSQRpX1Vf+Gw4t5aaNi1XioekFKntCy328l8ORerRCCECrbBzir+r5/T91SX7z4zwT951ZozbYmyawIDAQAB";
+	public static final String SSOAUTH_CLIENT_PRIVATE_KEY = "MIICeAIBADANBgkqhkiG9w0BAQEFAASCAmIwggJeAgEAAoGBAJiojQwWkzRuzmc1vB3Nzvmg1DblGYZd3YD0RZLKNfAcFDHDIW0wZvAxYJNe6OIMF/SKwlfswRx5e2z4olBaJCnKXzktLom0sTtXWTbfFFqEic+yfqNpNc0FmJk3FwfMmr4upYVC5R7PJ3xNMdOFFzp64DFySNIOo3iM43g7g3kDAgMBAAECgYAZed94CfhtAqTtcnk/XA5TeHSR6K/WzalekOVfduGDfZwdJdxZNX+oTAU68tbYin4g8Fs4gylDED7505B66mAoWxRhmkeBQ9610s5hycONKWJ5zEc8nHodS3LFMEbsOF61rxoUgHkc2dOFTVPSivthbEfI5fzi/V+w1i29iBBjKQJBANTuQT6iEQ2ZYAstpdDHaKWZ8jg48SDcCPKn57+XXVrC0E0AX5iPTz7W7oJpB3/+S8Od5WleXS9l2ffOUIQ4xa8CQQC3iVembg2aziHnWjPSvuoH9ELnrLxUsUQMknFOxK5GzM9LDScaiG6dP/qXJWWwpcL5/KJdR2fIE1GHwCwBBmrtAkEAwTjfbgXFcdC/jgVDVhzOQpBbdFd/wLDLUd+59mtV5LmqKmXvWdKaN8z0rNTAYI6TlBThjGd8KjnDvRK0j/ewswJBAJ27kDN9U33ed66/i9grsS/i0XkPr89NhUEUvgJG78vzCpfilt+rrvy/1ln9jtZwrw9u+g8WZe/CAoibNHYxEMUCQQCTEz0/oFb6NplbgF9f9YSS3J8Xcowzn0dkcUK8H4toLiWG12v4m9O74GzPr16/7pd1AUgIyoA+u1ZbigALGlX2";
+	public static final String SSOAUTH_SERVER_PUBLIC_KEY = "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCYqI0MFpM0bs5nNbwdzc75oNQ25RmGXd2A9EWSyjXwHBQxwyFtMGbwMWCTXujiDBf0isJX7MEceXts+KJQWiQpyl85LS6JtLE7V1k23xRahInPsn6jaTXNBZiZNxcHzJq+LqWFQuUezyd8TTHThRc6euAxckjSDqN4jON4O4N5AwIDAQAB";
+	public static final String SSOAUTH_SERVER_PRIVATE_KEY = "MIICdgIBADANBgkqhkiG9w0BAQEFAASCAmAwggJcAgEAAoGBAIk/AKRT6hxcVZ6drQNzhrbPzTf5OIlGvlmzdhTjlrydau5gE9G+T5yp+hUs66DACOAvBKYjmzN2zKTRXfDamrkAc2BUf0M1JBGlfVV/4bDi3lpo2LVeKh6QUqe0LLfbyXw5F6tEIIQKtsHOKv6vn9P3VJfvPjPBP3nVmjNtibJrAgMBAAECgYAdu65x61QOrNpHsLUoyEBpHn/BHpbm9pKKcFymjd+8IQZneh0RFX+92v041TB+9Nt3ZfhF3fTjo1sWYd1OLq3SEU9r9eAXkfGiua/31h2KDbWzCH9GVkAgbHompxFA4QVQnKb/s1DU9N7jd6x/XnpoQOUv3//ATE4ZlMPOddKv8QJBAL/6XLmMbFT90uMNTH8CKpaf2pSp5qJcqV5pAkxt7L3Ggn2qHCLpe0quYoWJJDQzO2sFYM/0to5YLf0JkSzLeMcCQQC3BAtDUYK1JHdQ51746jIbo0cQi0pApPwXACDJE6WbwRkR8kI9ut6r/D/dNLZ5qUYpCt1zv+jOGstFe0NrBb09AkAirhiYEEz1oZC6IYnjG8ITybbTykl2pSSXgILAyc7NjZG/H77Lc8ApAo2br+WRZHvkXmlZx8w+tKFCJ7tJC0y7AkAc45WHjdFNGLGA4tTaA9XfCPoJwYL6C1EDrHCAbQqCOIvlilEsf1fw3AOUvmJjd/XsOpvUTqHIDvCxShDNTv2dAkEAqsbIJBqNKu2ii6EVI5pdDt6lfbr9Bpwme6Lzl/rlMwV7cqCfWPWy7OzevFMVRzae3iUR+g419hdkBpdsoQ662Q=="; 
+	public static final String SSOAUTH_COOKIE_NAME = "auth";
+	public static final String SSOAUTH_COOKIE_TIME = "t";
+	public static final String SSOAUTH_CLIENT_SERVICE_URL_NAME = "serveurl";
+	public static final String SSOAUTH_CLIENT_LOGOUT_PATH = "logoutPath";
+	public static final String SSOAUTH_TOKEN_NAME = "token";
+	public static final String SSOAUTH_LOGOUT_TYPE = "SSOAuth";
+	public static final String SSOAUTH_CLIENT_SESSIONID_NAME = "sessionid_name";
+	public static final String SSOAUTH_CLIENT_SESSIONID = "session_id";
+	public static final int SSOAUTH_HTTP_TIMEOUT = 10000;
+	public static final String SSOAUTH_CACHE_TOKEN_PREFIX = "SSOAUTH_CACHE_TOKEN_PREFIX_STARNIL_MS_";
+	public static final String SSOAUTH_CACHE_TICKET_PREFIX = "SSOAUTH_CACHE_TICKET_PREFIX_STARNIL_MS_";
+
+}

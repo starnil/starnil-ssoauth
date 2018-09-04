@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:jsp="http://java.sun.com/xml/ns/javaee/jsp" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" id="WebApp_ID" version="2.5">
+    <welcome-file-list>
+        <welcome-file>index.jsp</welcome-file>
+    </welcome-file-list>
+    
+	<!-- 
+		缓存处理类，该类用于实现SSO用户登录后token、ticket数据的存储。默认采用本地缓存（不适用分布式环境）。
+		用户可设置自己的处理类实现分布式缓存（基于redis、memcached等），但必须实现“com.starnil.ms.component.ssoauth.cache.SSOCache”接口。
+	-->
+    <context-param>
+        <param-name>cacheClass</param-name>
+        <param-value>com.starnil.ms.component.ssoauth.cache.SSOCacheImpl</param-value>
+    </context-param>
+	<!-- 清理过期用户间隔时间（单位分），3分钟清理一次 -->
+    <context-param>
+        <param-name>clearIntervalTime</param-name>
+        <param-value>3</param-value>
+    </context-param>
+	<!-- SSO监听，用于实例化系统缓存（这里可指定分布式缓存服务等）、清理过期用户等 -->
+	<listener>
+	    <listener-class>
+	        com.starnil.ms.component.ssoauth.server.SSOListener
+	    </listener-class>
+	</listener>
+	
+    <filter>
+        <filter-name>ssoauthServerFilter</filter-name>
+        <filter-class>com.starnil.ms.component.ssoauth.server.filter.SSOServerFilter</filter-class>
+	    <init-param>
+	    	<!-- 排除的绝对资源路径，完整的访问地址 -->
+	        <param-name>excludeAbsPath</param-name>
+	        <param-value>/ssoauth/login,/ssoauth/logout,/ssoauth/validateToken,/ssoauth/keeplive</param-value>
+	    </init-param>
+    </filter>
+    <filter-mapping>
+        <filter-name>ssoauthServerFilter</filter-name>
+        <url-pattern>/ssoauth/*</url-pattern>
+    </filter-mapping>
+	
+	<!-- SSO认证servlet，该方法包含登录、退出、token认证、心跳激活等方法。 -->
+    <servlet>
+        <servlet-name>authentication</servlet-name>
+        <servlet-class>com.starnil.ms.component.ssoauth.server.servlet.AuthenticationServlet</servlet-class>
+        <init-param>
+        	<!-- 用户过期时间（在不活动情况下），单位分。 -->
+			<param-name>userExpiredTime</param-name>
+			<param-value>15</param-value>
+		</init-param>
+		<init-param>
+        	<!-- 用户登录，业务逻辑实现类，通过实现Login接口完成用户验证业务逻辑。 -->
+			<param-name>loginClass</param-name>
+			<param-value>com.starnil.ms.component.ssoauth.server.servlet.SSOLogin</param-value>
+		</init-param>
+        <init-param>
+        	<!-- 登录页面，登录失败会跳转到该页面 -->
+			<param-name>loginPath</param-name>
+			<param-value>/ssoauth/login.jsp</param-value>
+		</init-param>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>authentication</servlet-name>
+        <url-pattern>/ssoauth/login</url-pattern>
+        <url-pattern>/ssoauth/logout</url-pattern>
+        <url-pattern>/ssoauth/keeplive</url-pattern>
+        <url-pattern>/ssoauth/validateToken</url-pattern>
+    </servlet-mapping>
+
+<!-- 以下是单个servlet类，分别实现登录、退出、token认证、心跳激活等方法。
+    <servlet>
+        <servlet-name>login</servlet-name>
+        <servlet-class>com.starnil.ms.component.ssoauth.server.servlet.LoginServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>login</servlet-name>
+        <url-pattern>/ssoauth/login</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>logout</servlet-name>
+        <servlet-class>com.starnil.ms.component.ssoauth.server.servlet.LogoutServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>logout</servlet-name>
+        <url-pattern>/ssoauth/logout</url-pattern>
+    </servlet-mapping>
+     
+    <servlet>
+        <servlet-name>validateToken</servlet-name>
+        <servlet-class>com.starnil.ms.component.ssoauth.server.servlet.ValidateTokenServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>validateToken</servlet-name>
+        <url-pattern>/ssoauth/validateToken</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>keepliveServlet</servlet-name>
+        <servlet-class>com.starnil.ms.component.ssoauth.server.servlet.SSOKeepliveServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>keepliveServlet</servlet-name>
+        <url-pattern>/ssoauth/keeplive</url-pattern>
+    </servlet-mapping>
+    -->
+</web-app>

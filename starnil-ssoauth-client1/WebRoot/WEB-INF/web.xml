@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:jsp="http://java.sun.com/xml/ns/javaee/jsp" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" id="WebApp_ID" version="2.5">
+    <welcome-file-list>
+        <welcome-file>index.jsp</welcome-file>
+    </welcome-file-list>
+
+   <filter>
+        <filter-name>ssoauthClientFilter</filter-name>
+        <filter-class>com.starnil.ms.component.ssoauth.client.filter.SSOClientFilter</filter-class>
+	    <init-param>
+	    	<!-- 单点登录登录页面  -->
+	        <param-name>loginPath</param-name>
+	        <param-value>http://www.ssoserver.com:8098/ssoauth/login.jsp</param-value>
+	    </init-param>
+	    <init-param>
+	    	<!-- 退出登录回调地址（当前系统的退出登录地址，及LogoutServlet） -->
+	        <param-name>logoutPath</param-name>
+	        <param-value>http://www.ssoclient1.com:8098/logout</param-value>
+	    </init-param>
+	    <init-param>
+	    	<!-- 排除的绝对资源路径，完整的访问地址 -->
+	        <param-name>excludeAbsPath</param-name>
+	        <param-value>/index.jsp,/logout</param-value>
+	    </init-param>
+	    <init-param>
+	    	<!-- SESSION ID NAME，认证系统发起退出登录时放入cookie中的session id名称
+	    	（tomcat默认等于JSESSIONID，如果业务系统做了修改请在此处同步更新） -->
+	        <param-name>sessionIdName</param-name>
+	        <param-value>JSESSIONID</param-value>
+	    </init-param>
+    </filter>
+    <filter-mapping>
+        <filter-name>ssoauthClientFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+    
+    <servlet>
+        <servlet-name>logout</servlet-name>
+        <servlet-class>com.starnil.ms.component.ssoauth.client.servlet.LogoutServlet</servlet-class>
+        <init-param>
+        	<!-- 退出登录后，跳转页面 -->
+			<param-name>redirectPath</param-name>
+			<param-value>/index.jsp</param-value>
+		</init-param>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>logout</servlet-name>
+        <url-pattern>/logout</url-pattern>
+    </servlet-mapping>
+    
+	<servlet>
+        <servlet-name>test</servlet-name>
+        <servlet-class>com.starnil.ssoauth.web.client.servlet.TestServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>test</servlet-name>
+        <url-pattern>/test</url-pattern>
+    </servlet-mapping>
+    <session-config>  
+		<session-timeout>30</session-timeout>  
+	</session-config>
+</web-app>
