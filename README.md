@@ -29,11 +29,10 @@ server端对于用户登录认证只提供一个认证过程演示，如需将该组件应用到生产系统中请自
 组件支持对登录业务逻辑、登录用户缓存数据进行扩展。现组件中登录认证默认采用SSOLogin类（实现Login接口）；数据缓存采用本地缓存及SSOCacheImpl类（实现SSOCache接口）。
 
 ### 3.1、登录验证扩展（实现Login接口）
-**参考SSOLogin类**
-如需要结合数据库及业务系统使用该组件，对于登录只需要创建一个实现类并实现Login接口，同时需要把该类在web.xml配置中指定给用于验证的Servlet即可。
+如需要结合数据库及业务系统使用该组件，对于登录只需要创建一个实现类并实现Login接口，同时需要把该类在web.xml配置中指定给用于验证的Servlet即可。<br><br>
+**参考SSOLogin.java**
 ```java
 public class SSOLogin implements Login {
-
  @Override
  public LoginStatus verify(String userName, String password, String imgCode) {
   LoginStatus ls = new LoginStatus();
@@ -51,6 +50,10 @@ public class SSOLogin implements Login {
   return ls;
  }
 }
+扩展新的Login类之后，通过在web.xml文件Servlet（authentication）类中指定loginClass即可。<br><br>
+**web.xml代码片段**
 ```
+```Xml
 
+```
 ## 四、demo配置
