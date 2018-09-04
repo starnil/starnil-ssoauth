@@ -66,7 +66,8 @@ public class SSOLogin implements Login {
 ```Xml
 <!-- 
   缓存处理类，该类用于实现SSO用户登录后token、ticket数据的存储。默认采用本地缓存（不适用分布式环境）。
-  用户可设置自己的处理类实现分布式缓存（基于redis、memcached等），但必须实现“com.starnil.ms.component.ssoauth.cache.SSOCache”接口。
+  用户可设置自己的处理类实现分布式缓存（基于redis、memcached等），但必须实现
+  “com.starnil.ms.component.ssoauth.cache.SSOCache”接口。
 -->
 <context-param>
  <param-name>cacheClass</param-name>
